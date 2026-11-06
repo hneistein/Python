@@ -8,7 +8,7 @@ import time
 # Comment below for Windows
 import sys
 
-def pomodoro_timer_unix(work_duration=25, break_duration=5, cycles=4):
+def pomodoro_timer(work_duration=25, break_duration=5, cycles=4):
     for cycle in range(cycles):
         print(f"Cycle {cycle + 1}/{cycles}: Start working for {work_duration} minutes.")
         time.sleep(work_duration * 60)
@@ -35,4 +35,4 @@ if __name__ == "__main__":
     break_duration = int(input("Enter break duration in minutes (default is 5): ") or 5)
     cycles = int(input("Enter number of cycles (default is 4): ") or 4)
 
-    pomodoro_timer_unix(work_duration, break_duration, cycles)
+    pomodoro_timer(work_duration, break_duration, cycles)

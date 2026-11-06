@@ -15,3 +15,5 @@ I may build a front-end for this...on my web site, or as a computer app. I also 
         - currently active, comment to use on Windows.
 
 To run, navigate to the folder where you saved the script and type: python pomodoro_timer.py
+
+Run pomodoro_timer_tk.py for a UI built in Tkinter. Build still in progress as of 11/5/26, output displays in terminal while input is entered in the UI.
