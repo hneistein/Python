@@ -21,7 +21,7 @@ I copied this script because I find the Pomodoro method (generally, 25 minutes f
 
 I modified pomodoro_timer.py and created a UI for it using Tkinter.  Same features as above, it just runs in an app window instead of the terminal.
 
-![Screenshot of Pomodoro Timer UI][def]
+<img width="500" height="439" alt="Pomodoro_Timer_tk" src="https://github.com/user-attachments/assets/bf380ac6-5d94-4ac1-8d37-b28785202009" />
 
 #### To run, navigate to the folder where you saved the script and type: python pomodoro_timer_tk.py
 
@@ -30,6 +30,3 @@ I plan to make these updates to version 2 in the near future:
  - Use a sound file instead of terminal beeps when a phase ends
  - Add a SMS feature to receive a text msg when break time ends
  - Package into an executable (and add instructions to the README.md on how to do it)
-
-
-[def]: images/Pomodoro_Timer_tk.png
