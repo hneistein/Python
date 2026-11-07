@@ -1,9 +1,9 @@
 # Pomodoro Timer
 https://github.com/wasmerio/Python-Scripts/blob/main/Pomodoro%20Timer/Pomodoro%20Timer%20MacOS%20Linux.py
 
-I copied this script because I find the Pomodoro method (generally, 25 minutes focused, 5 minutes break, 4 cycles) very helpful. It keeps me from over-extending myself.
+## Version 1: pomodoro_timer.py
 
-I may build a front-end for this...on my web site, or as a computer app. I also had the thought I could get a battery, case, and speaker for my second Raspberry Pi Zero 2w so I could make it portable. Because one flaw in having it as a computer app is: if I get up and walk away from my laptop during a 5-minute break, I'm probably not coming back. At least, not for several hours. Because AuDHD.
+I copied this script because I find the Pomodoro method (generally, 25 minutes focused, 5 minutes break, 4 cycles) very helpful. It keeps me from over-extending myself.
 
 ✨ Features
 - Customizable Work and Break Durations: Set your preferred time for work and break sessions.
@@ -13,7 +13,23 @@ I may build a front-end for this...on my web site, or as a computer app. I also 
         - currently commented, uncomment to use on Windows.
     - macOS/Linux: Uses terminal beep commands for notifications.
         - currently active, comment to use on Windows.
+- Runs in the terminal
 
-To run, navigate to the folder where you saved the script and type: python pomodoro_timer.py
+#### To run, navigate to the folder where you saved the script and type: python pomodoro_timer.py
 
-Run pomodoro_timer_tk.py for a UI built in Tkinter. Build still in progress as of 11/5/26, output displays in terminal while input is entered in the UI.
+## Version 2: pomodoro_timer_tk.py
+
+I modified pomodoro_timer.py and created a UI for it using Tkinter.  Same features as above, it just runs in an app window instead of the terminal.
+
+![Screenshot of Pomodoro Timer UI][def]
+
+#### To run, navigate to the folder where you saved the script and type: python pomodoro_timer_tk.py
+
+I plan to make these updates to version 2 in the near future:
+ - Add validations to prevent entry of numeric values less than 1 and text that can't be converted to a number
+ - Use a sound file instead of terminal beeps when a phase ends
+ - Add a SMS feature to receive a text msg when break time ends
+ - Package into an executable (and add instructions to the README.md on how to do it)
+
+
+[def]: images/Pomodoro_Timer_tk.png

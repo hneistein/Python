@@ -77,7 +77,8 @@ class App(tk.Tk):
         self.entry_cycles = ttk.Entry(main_frame)
         self.entry_cycles.pack()
         frame = ttk.Frame(main_frame, relief='raised', borderwidth=5).pack()
-        ttk.Button(frame, text="Submit", command=self.submit_duration).pack()
+        self.submit_button = ttk.Button(frame, text="Submit", command=self.submit_duration)
+        self.submit_button.pack()
         
         # Console Frame at the bottom
         console_frame = ttk.LabelFrame(self, text="Message Console", padding=10)
@@ -89,34 +90,48 @@ class App(tk.Tk):
         self.console.pack(fill="x", expand=True)
 
     def submit_duration(self):
-        work_duration = int(self.entry_work_duration.get() or 25)
-        break_duration = int(self.entry_break_duration.get() or 5)
-        cycles = int(self.entry_cycles.get() or 4)
+        # disable the submit button so it can't execute again while it is in process
+        self.submit_button.config(state="disable")
+        self.console.clear()
+        self.console.log("Starting process...")
+        self.update()
 
-        for cycle in range(cycles):
-            self.console.log(f"Cycle {cycle + 1}/{cycles}: Start working for {work_duration} minutes.")
-            # tells Tkinter to refresh the UI and update the message console
-            self.update()
-            time.sleep(work_duration * 60)
-            # Comment below for Windows
-            sys.stdout.write('\a') # Make a beep sound on macOS/Linux
-            sys.stdout.flush()
-            # Uncomment below for Windows
-            # winsound.Beep(1000, 1000)  # Sound an alert to indicate work period end
-            self.console.log(f"Break time! Relax for {break_duration} minutes.")
-            # tells Tkinter to refresh the UI and update the message console
-            self.update()
-            time.sleep(break_duration * 60)
-            # Comment below for Windows
-            sys.stdout.write('\a') # Make a beep sound on macOS/Linux
-            sys.stdout.flush()
-            # Uncomment below for Windows 
-            # winsound.Beep(1000, 1000)  # Sound an alert to indicate break period end      
-            self.console.log("Break is over! Back to work.")
-            # tells Tkinter to refresh the UI and update the message console
-            self.update()
+        try:
 
-        self.console.log("All cycles completed! Great job!")
+            work_duration = int(self.entry_work_duration.get() or 25)
+            break_duration = int(self.entry_break_duration.get() or 5)
+            cycles = int(self.entry_cycles.get() or 4)
+
+            for cycle in range(cycles):
+                self.console.log(f"Cycle {cycle + 1}/{cycles}: Start working for {work_duration} minutes.")
+                # tells Tkinter to refresh the UI and update the message console
+                self.update()
+                time.sleep(work_duration * 60)
+                # Comment below for Windows
+                sys.stdout.write('\a') # Make a beep sound on macOS/Linux
+                sys.stdout.flush()
+                # Uncomment below for Windows
+                # winsound.Beep(1000, 1000)  # Sound an alert to indicate work period end
+                self.console.log(f"Break time! Relax for {break_duration} minutes.")
+                # tells Tkinter to refresh the UI and update the message console
+                self.update()
+                time.sleep(break_duration * 60)
+                # Comment below for Windows
+                sys.stdout.write('\a') # Make a beep sound on macOS/Linux
+                sys.stdout.flush()
+                # Uncomment below for Windows 
+                # winsound.Beep(1000, 1000)  # Sound an alert to indicate break period end      
+                self.console.log("Break is over! Back to work.")
+                # tells Tkinter to refresh the UI and update the message console
+                self.update()
+
+            self.console.log("All cycles completed! Great job!")
+
+        except Exception as e:
+            self.console.log(f"An error occurred: {e}", is_error=True)
+
+        finally:
+            self.submit_button.config(state="normal")
 
 if __name__ == "__main__":
     app = App()
