@@ -1,7 +1,12 @@
 import smtplib
 from email.mime.text import MIMEText
 import os
+from pathlib import Path
 from dotenv import load_dotenv
+
+# Force Python to look in the exact same folder as this script file
+env_path = Path(__file__).resolve().parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Configuration
 smtp_server = os.getenv("SMTP_SERVER")
