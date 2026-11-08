@@ -11,9 +11,9 @@ def send_break_over_sms():
     load_dotenv(dotenv_path=env_path)
 
     # Configuration
-    smtp_server = os.getenv("SMTP_SERVER")
-    smtp_port = os.getenv("SMTP_PORT")
-    sender_email = os.getenv("SENDER_EMAIL")
+    smtp_server = os.getenv("SMTP_SERVER") # I used gmail
+    smtp_port = os.getenv("SMTP_PORT") # I used 587
+    sender_email = os.getenv("SENDER_EMAIL") # I used my gmail email address
     # Note: Gmail requires an "App Password" rather than your normal password
     sender_password = os.getenv("SENDER_PASSWORD") 
 
@@ -21,7 +21,7 @@ def send_break_over_sms():
     # T-Mobile: [number]@tmomail.net
     # AT&T: [number]@txt.att.net
     # Verizon: [number]@vtext.com
-    recipient_sms_gateway = os.getenv("RECIPIENT_SMS_GATEWAY") 
+    recipient_sms_gateway = os.getenv("RECIPIENT_SMS_GATEWAY") # I have T-Mobile
     message_subject = "Pomodoro Timer"
     message_body = "Break time is over, back to work!"
 
@@ -38,9 +38,9 @@ def send_break_over_sms():
         server.login(sender_email, sender_password)
         server.sendmail(sender_email, recipient_sms_gateway, msg.as_string())
         server.quit()
-        print("Text message sent successfully!")
+        return "Text message sent successfully!"
     except Exception as e:
-        print(f"Failed to send text: {e}")
+        return f"Failed to send text: {e}"
 
 if __name__ == "__main__":
     send_break_over_sms()        

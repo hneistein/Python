@@ -108,24 +108,17 @@ class App(tk.Tk):
                 # tells Tkinter to refresh the UI and update the message console
                 self.update()
                 time.sleep(work_duration * 60)
-                # Comment below for Windows
-                sys.stdout.write('\a') # Make a beep sound on macOS/Linux
-                sys.stdout.flush()
-                # Uncomment below for Windows
-                # winsound.Beep(1000, 1000)  # Sound an alert to indicate work period end
+                self.bell()
                 self.console.log(f"Break time! Relax for {break_duration} minutes.")
                 # tells Tkinter to refresh the UI and update the message console
                 self.update()
                 time.sleep(break_duration * 60)
-                # Comment below for Windows
-                sys.stdout.write('\a') # Make a beep sound on macOS/Linux
-                sys.stdout.flush()
-                # Uncomment below for Windows 
-                # winsound.Beep(1000, 1000)  # Sound an alert to indicate break period end      
+                self.bell()
                 self.console.log("Break is over! Back to work.")
+                self.console.log(email_to_text.send_break_over_sms())
                 # tells Tkinter to refresh the UI and update the message console
                 self.update()
-                email_to_text.send_break_over_sms()
+                
 
             self.console.log("All cycles completed! Great job!")
 
