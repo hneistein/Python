@@ -3,6 +3,8 @@ from tkinter import ttk
 import time
 import sys
 
+email_to_text = __import__("email-to-text")
+
 class MessageConsole(tk.Text):
     def __init__(self, master, min_height=1, max_height=50, **kwargs):
         # Enforce settings required for auto-resizing
@@ -123,6 +125,7 @@ class App(tk.Tk):
                 self.console.log("Break is over! Back to work.")
                 # tells Tkinter to refresh the UI and update the message console
                 self.update()
+                email_to_text.send_break_over_sms()
 
             self.console.log("All cycles completed! Great job!")
 
