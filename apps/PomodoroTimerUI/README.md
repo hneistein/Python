@@ -49,3 +49,5 @@ In addition to the features in the pomodoro_timer_tk.py script:
     - Display how-to and website URL (NOT STARTED)
 
 This is the version I will be creating the application package out of.
+
+<img width="301" height="270" alt="Screenshot From 2026-11-10 11-40-03" src="https://github.com/user-attachments/assets/5765a2ac-8325-4d99-9eb7-be2d34adeda9" />
