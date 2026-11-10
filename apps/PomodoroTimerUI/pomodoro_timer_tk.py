@@ -64,8 +64,8 @@ class App(tk.Tk):
         self.geometry("500x400")
         
         # Main content area (Simulating your app layout)
-        main_frame = ttk.LabelFrame(self, text="Application Entry", padding=20)
-        main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        main_frame = ttk.LabelFrame(self, text="Application Entry", padding=10)
+        main_frame.pack(fill="both", padx=10, pady=10)
         
         # main_frame labels and entry fields
         ttk.Label(main_frame, text="Work Duration:").pack()
@@ -77,13 +77,16 @@ class App(tk.Tk):
         ttk.Label(main_frame, text="Cycles:").pack()
         self.entry_cycles = ttk.Entry(main_frame)
         self.entry_cycles.pack()
-        frame = ttk.Frame(main_frame, relief='raised', borderwidth=5).pack()
-        self.submit_button = ttk.Button(frame, text="Submit", command=self.submit_duration)
-        self.submit_button.pack()
+        btn_frame = ttk.Frame(self, borderwidth=5)
+        btn_frame.pack(fill="both", padx=5, pady=5)
+        self.submit_button = ttk.Button(btn_frame, text="Submit", width=12, command=self.submit_duration)
+        self.submit_button.pack(side="left", padx=75)
+        self.cancel_button = ttk.Button(btn_frame, text="Cancel", width=12) # command=self.cancel_execution)
+        self.cancel_button.pack(side="right", padx=75)
         
         # Console Frame at the bottom
         console_frame = ttk.LabelFrame(self, text="Message Console", padding=10)
-        console_frame.pack(fill="x", side="bottom", padx=10, pady=10)
+        console_frame.pack(fill="x", expand=True, side="bottom", padx=10, pady=10)
         
         # Instantiate our auto-resizing console
         # Caps growth at 8 rows so it doesn't take over the whole UI
@@ -127,6 +130,9 @@ class App(tk.Tk):
 
         finally:
             self.submit_button.config(state="normal")
+
+    # def cancel_execution(self):
+        # tbd
 
 if __name__ == "__main__":
     app = App()

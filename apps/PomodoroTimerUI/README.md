@@ -32,6 +32,20 @@ Check the comments in the email-to-text.py for more details on these variables.
 
 #### To run, navigate to the folder where you saved the script and type: python pomodoro_timer_tk.py
 
-I plan to make these updates to version 2 in the near future:
+## Version 3: pomodoro_timer_tkv2.py
 
- - Package into an executable (and add instructions to the README.md on how to do it)
+Yeah...I'm re-writing the whole thing. Ran into an issue with version 2 when I started looking into adding a cancel button. The original script (pomodoro_timer.py) uses the time.sleep() method in a for loop. The program stops executing until the time.sleep() is complete. Which means there's no way to cancel it except pressing CTRL+C in the terminal. Which is not a good solution for a UI application.
+
+✨ Features
+In addition to the features in the pomodoro_timer_tk.py script:
+- The main window is now a clean interface with a countdown timer
+    - Label above the timer displays the timer's status (DONE)
+    - Two buttons: Start and Cancel. Start is disabled once clicked (DONE)
+    - Bottom Label displays system messages and errors (NOT STARTED)
+- Replaced the loop and time.sleep() with Tkinter labels and timer functionality (DONE)
+- Application Menu (SKELETON DONE) to display windows to:
+    - Enter work and break duration, number of cycles (otherwise, default is 25, 5, 4) (NOT STARTED)
+    - Create / update the .env file used for SMS message when break ends (NOT STARTED)
+    - Display how-to and website URL (NOT STARTED)
+
+This is the version I will be creating the application package out of.
