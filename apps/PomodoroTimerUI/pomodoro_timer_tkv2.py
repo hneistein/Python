@@ -48,8 +48,7 @@ class PomodoroApp:
         app_menu.add_command(label="SMS Setup", command=self.update_SMS_file)
         app_menu.add_command(label="About", command=self.create_about_page)
 
-    def set_app_data(self):
-        print("Window to set work and break duration, and number of cycles")
+ 
 
     def update_SMS_file(self):
         print("Window to create or update env file for SMS vars")
@@ -61,11 +60,6 @@ class PomodoroApp:
         # Prevent starting multiple overlapping timers
         if self.timer_id is not None:
             return
-
-        # Replace these hardcoded values with .get() from your Entry widgets
-        self.work_duration = 1   # minutes
-        self.break_duration = 1   # minutes
-        self.total_cycles = 1
 
         self.current_cycle = 1
         self.is_work_phase = True
@@ -109,6 +103,38 @@ class PomodoroApp:
             else:
                 self.finish_pomodoro()
 
+    def set_app_data(self):
+        # print("Window to set work and break duration, and number of cycles")
+
+        app_entry = tk.Toplevel(self.root)
+        app_entry.title("Pomodoro Timer - Application Entry")
+        app_entry.geometry("300x250")
+
+        # Main content area (Simulating your app layout)
+        main_frame = tk.LabelFrame(app_entry, text="Application Entry")
+        main_frame.pack(fill="both", padx=10, pady=10)
+        
+        # main_frame labels and entry fields
+        tk.Label(main_frame, text="Work Duration:").pack()
+        self.entry_work_duration = tk.Entry(main_frame)
+        self.entry_work_duration.pack()
+        tk.Label(main_frame, text="Break Duration:").pack()
+        self.entry_break_duration = tk.Entry(main_frame)
+        self.entry_break_duration.pack()
+        tk.Label(main_frame, text="Cycles:").pack()
+        self.entry_cycles = tk.Entry(main_frame)
+        self.entry_cycles.pack()  
+        self.submit_button = tk.Button(main_frame, text="Submit", width=12, command=self.get_app_data)
+        self.submit_button.pack(side="left", padx=75)  
+
+    def get_app_data(self):
+        # Read the entry values, using defaults for empty fields.
+        self.work_duration = int(self.entry_work_duration.get() or 25)   # minutes
+        self.break_duration = int(self.entry_break_duration.get() or 5)   # minutes
+        self.total_cycles = int(self.entry_cycles.get() or 4)
+
+        self.submit_button.winfo_toplevel().destroy()
+ 
     def send_phone_alert(self):
         email_to_text.send_break_over_sms()
 
@@ -133,6 +159,9 @@ class PomodoroApp:
         self.time_label.config(text="00:00")
         self.start_btn.config(state=tk.NORMAL)
         self.cancel_btn.config(state=tk.DISABLED)
+        self.work_duration = None
+        self.break_duration = None
+        self.total_cycles = None
 
 if __name__ == "__main__":
     root = tk.Tk()
