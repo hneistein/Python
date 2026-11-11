@@ -41,10 +41,10 @@ In addition to the features in the pomodoro_timer_tk.py script:
 - The main window is now a clean interface with a countdown timer
     - Label above the timer displays the timer's status (DONE)
     - Two buttons: Start and Cancel. Start is disabled once clicked (DONE)
-    - Bottom Label displays system messages and errors (NOT STARTED)
+    - Bottom Label displays system messages and errors (DONE)
 - Replaced the loop and time.sleep() with Tkinter labels and timer functionality (DONE)
 - Application Menu (SKELETON DONE) to display windows to:
-    - Enter work and break duration, number of cycles (otherwise, default is 25, 5, 4) (NOT STARTED)
+    - Enter work and break duration, number of cycles (otherwise, default is 25, 5, 4) (DONE)
     - Create / update the .env file used for SMS message when break ends (NOT STARTED)
     - Display how-to and website URL (NOT STARTED)
 
