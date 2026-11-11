@@ -38,9 +38,9 @@ def send_break_over_sms():
         server.login(sender_email, sender_password)
         server.sendmail(sender_email, recipient_sms_gateway, msg.as_string())
         server.quit()
-        print ("Text message sent successfully!")
+        return "Text message sent successfully!"
     except Exception as e:
-        print (f"Failed to send text: {e}")
+        return f"Failed to send text: {e}"
 
 if __name__ == "__main__":
     send_break_over_sms()        

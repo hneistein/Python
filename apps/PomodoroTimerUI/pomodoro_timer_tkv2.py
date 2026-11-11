@@ -38,6 +38,9 @@ class PomodoroApp:
         self.cancel_btn = tk.Button(btn_frame, text="Cancel", width=10, command=self.cancel_pomodoro, state=tk.DISABLED)
         self.cancel_btn.pack(side=tk.LEFT, padx=5)
 
+        self.system_label = tk.Label(root, text="", font=("Helvetica", 12))
+        self.system_label.pack()
+
     def create_menu(self):
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
@@ -83,6 +86,7 @@ class PomodoroApp:
             self.handle_phase_transition()
 
     def handle_phase_transition(self):
+        self.root.bell()
         if self.is_work_phase:
             # Switch from Work to Break
             self.is_work_phase = False
@@ -104,8 +108,6 @@ class PomodoroApp:
                 self.finish_pomodoro()
 
     def set_app_data(self):
-        # print("Window to set work and break duration, and number of cycles")
-
         app_entry = tk.Toplevel(self.root)
         app_entry.title("Pomodoro Timer - Application Entry")
         app_entry.geometry("300x250")
@@ -136,7 +138,9 @@ class PomodoroApp:
         self.submit_button.winfo_toplevel().destroy()
  
     def send_phone_alert(self):
-        email_to_text.send_break_over_sms()
+        status = email_to_text.send_break_over_sms()
+       
+        self.root.after(0, lambda: self.system_label.config(text=f"{status}"))
 
     def update_status(self):
         phase = "Work" if self.is_work_phase else "Break"
