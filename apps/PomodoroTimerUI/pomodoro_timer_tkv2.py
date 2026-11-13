@@ -1,5 +1,9 @@
 import tkinter as tk
 import threading
+from pathlib import Path
+from dotenv import set_key
+import time
+import webbrowser
 
 email_to_text = __import__("email-to-text")
 
@@ -51,13 +55,68 @@ class PomodoroApp:
         app_menu.add_command(label="SMS Setup", command=self.update_SMS_file)
         app_menu.add_command(label="About", command=self.create_about_page)
 
- 
-
     def update_SMS_file(self):
-        print("Window to create or update env file for SMS vars")
+        env_entry = tk.Toplevel(self.root)
+        env_entry.title("Pomodoro Timer - Create or Update ENV file")
+        env_entry.geometry("300x300")
+
+        # Main content area (Simulating your app layout)
+        main_frame = tk.LabelFrame(env_entry, text="Environment Variables Entry")
+        main_frame.pack(fill="both", padx=10, pady=10)
+
+        # main_frame labels and entry fields
+        tk.Label(main_frame, text="SMTP Server:").pack()
+        self.smtp_server = tk.Entry(main_frame)
+        self.smtp_server.pack()
+        tk.Label(main_frame, text="SMPT Port:").pack()
+        self.smtp_port = tk.Entry(main_frame)
+        self.smtp_port.pack()
+        tk.Label(main_frame, text="Sender Email:").pack()
+        self.sender_email = tk.Entry(main_frame)
+        self.sender_email.pack() 
+        tk.Label(main_frame, text="Sender Password:").pack()
+        self.sender_pass = tk.Entry(main_frame)
+        self.sender_pass.pack()
+        tk.Label(main_frame, text="Recipient's SMS Gateway:").pack()
+        self.recipient_sms_gateway = tk.Entry(main_frame)
+        self.recipient_sms_gateway.pack() 
+        self.submit_button = tk.Button(main_frame, text="Submit", width=12, command=self.update_env_file)
+        self.submit_button.pack(side="left", padx=75)  
+
+    def update_env_file(self):
+        env_path = Path(".env")
+        # Create the empty file if it doesn't exist yet
+        env_path.touch(exist_ok=True)       
+
+        set_key(str(env_path), "SMTP_SERVER", self.smtp_server.get())
+        set_key(str(env_path), "SMTP_PORT", self.smtp_port.get())  
+        set_key(str(env_path), "SENDER_EMAIL", self.sender_email.get())
+        set_key(str(env_path), "SENDER_PASSWORD", self.sender_pass.get())
+        set_key(str(env_path), "RECIPIENT_SMS_GATEWAY", self.recipient_sms_gateway.get())    
+
+        status = "Creation / update of .env file successful."
+        self.root.after(0, lambda: self.system_label.config(text=f"{status}"))
+        self.submit_button.winfo_toplevel().destroy()
+
+    def open_url(self, url):
+        webbrowser.open_new(url)
 
     def create_about_page(self):
-        print("Static resource to provide help and link to web site")
+        about_pg = tk.Toplevel(self.root)
+        about_pg.title("Pomodoro Timer - About")
+        about_pg.geometry("300x200")
+
+        self.link = tk.Label(
+            about_pg, 
+            text="Visit my website", 
+            fg="blue",
+            cursor="hand2",
+            font=("Arial", 12, "underline")
+        )
+        self.link.pack(pady=50)
+
+        #Bind the left mouse button click to open the URL
+        self.link.bind("<Button-1>", lambda event: self.open_url("https://aechneisdevelopment.us"))
 
     def start_pomodoro(self):
         # Prevent starting multiple overlapping timers
@@ -145,6 +204,7 @@ class PomodoroApp:
     def update_status(self):
         phase = "Work" if self.is_work_phase else "Break"
         self.status_label.config(text=f"Cycle {self.current_cycle}/{self.total_cycles} - {phase}")
+        self.system_label.config(text="")
 
     def cancel_pomodoro(self):
         if self.timer_id is not None:
@@ -156,6 +216,7 @@ class PomodoroApp:
         self.time_label.config(text="00:00")
         self.start_btn.config(state=tk.NORMAL)
         self.cancel_btn.config(state=tk.DISABLED)
+        self.system_label.config(text="")
 
     def finish_pomodoro(self):
         self.timer_id = None
